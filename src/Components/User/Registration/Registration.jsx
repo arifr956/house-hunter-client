@@ -74,6 +74,7 @@ const Registration = () => {
                             name: name,
                             email: email,
                             photoURL: photoURL,
+                            password: password,
                             role: 'user'
                         };
                         axiosPublic.post('/user', userInfo)

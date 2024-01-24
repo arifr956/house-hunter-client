@@ -29,6 +29,7 @@ import AdminRoute from './Routes/AdminRoute';
 import Agreements from './Components/Dashboard/Admin/Agreements';
 
 import MemberRoute from './Routes/MemberRoute';
+import NewApartment from './Components/Dashboard/Admin/NewApartment';
 
 
 const router = createBrowserRouter([
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
       {
         path: "manageMember",
         element: <AdminRoute><ManageMember></ManageMember></AdminRoute>
+      },
+      {
+        path: "manageMember",
+        element: <AdminRoute><NewApartment></NewApartment></AdminRoute>
       },
       {
         path: "announcements",

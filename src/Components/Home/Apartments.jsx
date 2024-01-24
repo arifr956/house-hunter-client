@@ -121,7 +121,7 @@ const Apartments = () => {
         <SectionTitle heading="Our Apartments" />
 
         {/* Search Form */}
-        <div className="search-form">
+        <div className="search-form mx-auto">
           <label htmlFor="city">City:</label>
           <input
             type="text"
