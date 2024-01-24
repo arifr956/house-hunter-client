@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { AuthContext } from "../../../providers/AuthProvider";
+import { CentralContext } from "../../../providers/AuthProvider";
 import useAdmin from "../../../hooks/useAdmin";
 import useApartment from "../../../hooks/useApartment";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
@@ -8,7 +8,7 @@ import { FcApproval, FcBusinessman, FcOk, FcRating } from "react-icons/fc";
 import { Helmet } from "react-helmet-async";
 
 const AdminHome = () => {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(CentralContext);
   const [isAdmin] = useAdmin();
   const [apartments] = useApartment();
   const axiosSecure = useAxiosSecure();
@@ -16,7 +16,7 @@ const AdminHome = () => {
   const { data: users = [] } = useQuery({
     queryKey: ['users'],
     queryFn: async () => {
-      const res = await axiosSecure.get('/users');
+      const res = await axiosSecure.get('/user');
       return res.data;
     }
   });
@@ -31,7 +31,7 @@ const AdminHome = () => {
   return (
     <div>
       <Helmet>
-        <title>Serenity Heaven | Admin Home</title>
+        <title>House Hunter | Admin Home</title>
       </Helmet>
       {
         isAdmin && (<>
@@ -66,7 +66,7 @@ const AdminHome = () => {
               <div className="stat-figure text-secondary">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
               </div>
-              <div className="stat-title">Total Room</div>
+              <div className="stat-title">Total House</div>
               <div className="stat-value">{apartments.length}</div>
               {/* <div className="stat-desc">Jan 1st - Feb 1st</div> */}
             </div>
@@ -75,7 +75,7 @@ const AdminHome = () => {
               <div className="stat-figure text-secondary">
                 <FcApproval className="text-3xl" />
               </div>
-              <div className="stat-title">Parcentage of Avaiable Room</div>
+              <div className="stat-title">Parcentage of Avaiable House</div>
               <div className="stat-value">{percentAvaiable} %</div>
               {/* <div className="stat-desc">↗︎ 400 (22%)</div> */}
             </div>
@@ -84,7 +84,7 @@ const AdminHome = () => {
               <div className="stat-figure text-secondary">
                 <FcOk className="text-3xl" />
               </div>
-              <div className="stat-title">Parcentage of Booked Room</div>
+              <div className="stat-title">Parcentage of Booked House</div>
               <div className="stat-value">{percentBooked}%</div>
               {/* <div className="stat-desc">↘︎ 90 (14%)</div> */}
             </div>

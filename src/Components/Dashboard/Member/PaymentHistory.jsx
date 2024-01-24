@@ -4,7 +4,7 @@ import useMember from "../../../hooks/useMember";
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from "@material-ui/core";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useState, useEffect, useContext } from "react";
-import { AuthContext } from "../../../providers/AuthProvider";
+import { CentralContext } from "../../../providers/AuthProvider";
 
 const PaymentHistory = () => {
     const [isMember] = useMember();
@@ -13,7 +13,7 @@ const PaymentHistory = () => {
     const [payments, setPayments] = useState([]);
     const [payFilter, setPayFilter] = useState([]);
     const [loading, setLoading] = useState(true);
-    const { user } = useContext(AuthContext);
+    const { user } = useContext(CentralContext);
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {

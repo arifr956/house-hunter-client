@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
 import { useContext } from "react";
-import { AuthContext } from "../../../providers/AuthProvider";
+import { CentralContext } from "../../../providers/AuthProvider";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useNavigate } from "react-router-dom";
 
@@ -14,7 +14,7 @@ export default function CheckoutForm({ apartment, selectedMonth, discountedRent 
   const stripe = useStripe();
   const elements = useElements();
   const axiosSecure = useAxiosSecure();
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(CentralContext);
   const navigate = useNavigate();
 
 

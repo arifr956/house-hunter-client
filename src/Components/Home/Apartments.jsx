@@ -5,7 +5,7 @@ import useApartments from "../../hooks/useApartment";
 import SectionTitle from "./SectionTitle";
 import SingleApartment from "./SingleApartment";
 import { useContext } from "react";
-import { AuthContext } from "../../providers/AuthProvider";
+import {  CentralContext } from "../../providers/AuthProvider";
 import { useLocation, useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -15,7 +15,7 @@ import Swal from "sweetalert2";
 import "./Pagination.css";
 
 const Apartments = () => {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(CentralContext);
   const navigate = useNavigate();
   const location = useLocation();
   const axiosSecure = useAxiosSecure();
@@ -53,7 +53,8 @@ const Apartments = () => {
 
   // Handle agreement booking
   const handleAgreement = (_id, apartment) => {
-    const { blockName, floorNo, apartmentNo, rent } = apartment;
+ 
+    const { name, address, bedrooms, rent } = apartment;
     if (user && user.email) {
       const currentDate = new Date()
         .toLocaleDateString("en-GB")
@@ -65,9 +66,9 @@ const Apartments = () => {
         email: user.email,
         userName: user.displayName,
         status: "pending",
-        blockName,
-        floorNo,
-        apartmentNo,
+        name,
+        address,
+        bedrooms,
         rent,
         date: currentDate,
       };

@@ -41,12 +41,7 @@ const Dashboard = () => {
                   Agreement Request
                 </NavLink>
               </li>
-              <li>
-                <NavLink to="/dashboard/coupons">
-                  <FaBahai />
-                  Manage Coupon
-                </NavLink>
-              </li>
+             
             </>
           ) : isMember ? (
             <>
@@ -56,12 +51,7 @@ const Dashboard = () => {
                   User Home
                 </NavLink>
               </li>
-              <li>
-                <NavLink to="/dashboard/makePayment">
-                  <FaCalendar></FaCalendar>
-                  Make Payment
-                </NavLink>
-              </li>
+              
               <li>
                 <NavLink to="/dashboard/history">
                   <FaHistory />
@@ -103,7 +93,7 @@ const Dashboard = () => {
           <li>
             <NavLink to="/apartments">
               <FaWarehouse />
-              Apartments
+              Houses
             </NavLink>
           </li>
         </ul>

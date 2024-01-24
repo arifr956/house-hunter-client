@@ -24,11 +24,10 @@ import Announcements from './Components/Dashboard/Admin/Announcements';
 import UserHome from './Components/Dashboard/User/UserHome';
 import DashboardAnnouncement from './Components/Dashboard/DashboardAnnouncement';
 import PaymentHistory from './Components/Dashboard/Member/PaymentHistory';
-import MakePayment from './Components/Dashboard/Member/MakePayment';
+
 import AdminRoute from './Routes/AdminRoute';
 import Agreements from './Components/Dashboard/Admin/Agreements';
-import CouponsPage from './Components/Dashboard/Admin/CouponsPage';
-import PayNow from './Components/Dashboard/Member/PayNow';
+
 import MemberRoute from './Routes/MemberRoute';
 
 
@@ -61,10 +60,7 @@ const router = createBrowserRouter([
     children: [
 
       // admin routes
-      {
-        path: "coupons",
-        element: <AdminRoute><CouponsPage></CouponsPage></AdminRoute>
-      },
+      
       {
         path: "adminHome",
         element: <AdminRoute><AdminHome></AdminHome></AdminRoute>
@@ -100,15 +96,6 @@ const router = createBrowserRouter([
       {
         path: "history",
         element: <MemberRoute><PaymentHistory></PaymentHistory></MemberRoute>
-      },
-      {
-        path: "makePayment",
-        element: <MemberRoute><MakePayment></MakePayment></MemberRoute>
-      },
-      {
-        path: "/dashboard/makePayment/payNow/:id",
-        element: <MemberRoute><PayNow /></MemberRoute>,
-        loader: ({ params }) => fetch(`http://localhost:5000/apartments/${params.id}`)
       }
 
 

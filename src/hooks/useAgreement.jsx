@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import useAxiosSecure from "./useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
-import { AuthContext } from "../providers/AuthProvider";
+import { CentralContext } from "../providers/AuthProvider";
 
 const useAgreement = () => {
   const axiosSecure = useAxiosSecure();
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(CentralContext);
 
   const { refetch, data: agreement = [] } = useQuery({
     queryKey: ['agreement', user?.email], 

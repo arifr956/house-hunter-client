@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import { AuthContext } from "../../../providers/AuthProvider";
+import { CentralContext } from "../../../providers/AuthProvider";
 import useMember from "../../../hooks/useMember";
 import useAgreement from "../../../hooks/useAgreement";
 import { BsCalendarDate } from "react-icons/bs";
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@material-ui/core";
 
 const UserHome = () => {
-    const { user } = useContext(AuthContext);
+    const { user } = useContext(CentralContext);
     const [isMember] = useMember();
     const [agreement] = useAgreement();
     const userAgreements = agreement.filter((a) => a.email === user.email);
