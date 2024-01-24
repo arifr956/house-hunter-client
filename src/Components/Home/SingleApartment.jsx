@@ -1,9 +1,9 @@
 const SingleApartment = ({ apartment, handleAgreement }) => {
-  const { name, address, city, bedrooms, bathrooms, roomSize, picture, availabilityDate, rent, phoneNumber, description } = apartment;
+  const { name, address, city, bedrooms, bathrooms, roomSize, picture, availabilityDate, rentPerMonth, phoneNumber, description } = apartment;
 
   return (
     <div>
-      <div className="w-60 h-80 bg-gray-50 p-3 flex flex-col gap-1 rounded-2xl">
+      <div className="w-60 h-100 bg-gray-50 p-3 flex flex-col gap-1 rounded-2xl">
         <div className="h-48 bg-gray-700 rounded-xl">
           <img className="w-full h-full" src={picture} alt="Apartment Thumbnail" />
         </div>
@@ -16,8 +16,9 @@ const SingleApartment = ({ apartment, handleAgreement }) => {
               <p className="text-xs text-gray-700">Bedrooms: {bedrooms}</p>
               <p className="text-xs text-gray-700">Bathrooms: {bathrooms}</p>
               <p className="text-xs text-gray-700">Room Size: {roomSize}</p>
+              <p className="text-xs text-gray-700">Avaiable from: {availabilityDate}</p>
             </div>
-            <span className="font-bold text-red-600">${rent}</span>
+            <span className="font-bold text-red-600">${rentPerMonth}</span>
           </div>
           <p className="text-xs text-gray-700">{description}</p>
           <button onClick={() => handleAgreement(apartment._id, apartment)} className="hover:bg-sky-700 text-white bg-red-400 py-2 rounded-md"> Confirm Agreement</button>
