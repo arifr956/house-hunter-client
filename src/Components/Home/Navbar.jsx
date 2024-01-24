@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { AuthContext } from '../../providers/AuthProvider';
+import { CentralContext } from '../../providers/AuthProvider';
 import { ToastContainer, toast } from 'react-toastify';
 
 const pages = [
@@ -22,11 +22,11 @@ const pages = [
 ];
 
 const Navbar = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, LogOutUser } = useContext(CentralContext);
   const navigation = useNavigate();
 
   const handleLogOut = () => {
-    logOut()
+    LogOutUser()
     .then(result => {
       toast.success(`LogOut Successfully !`, {
           position: "top-center",
@@ -77,7 +77,7 @@ const Navbar = () => {
               alignItems: 'center',
             }}
           >
-            <Typography sx={{ mr: 2, color: '#0096c7' }}>SERENITY</Typography> HEAVEN
+            <Typography sx={{ mr: 2, color: '#0096c7' }}>HOUSE</Typography> HUNTER
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -149,7 +149,7 @@ const Navbar = () => {
               alignItems: 'center',
             }}
           >
-            <Typography sx={{ mr: 2, color: '#0096c7' }}>SERENITY</Typography> HEAVEN
+            <Typography sx={{ mr: 2, color: '#0096c7' }}>HOUSE</Typography> HUNTER
           </Typography>
 
           {user ? (

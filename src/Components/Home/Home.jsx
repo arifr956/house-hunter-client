@@ -1,16 +1,15 @@
 import About from "./About";
+import Apartments from "./Apartments";
 import Banner from "./Banner";
-import Coupon from "./Coupon";
-import Location from "./Location";
+
 
 
 const Home = () => {
     return (
         <div>
             <Banner></Banner>
-            <Coupon></Coupon>
+            <Apartments></Apartments>3
             <About></About>
-            <Location></Location>
         </div>
     );
 };

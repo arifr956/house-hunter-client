@@ -4,81 +4,23 @@ import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { AuthContext } from "../../providers/AuthProvider";
+import { CentralContext } from "../../providers/AuthProvider";
 
 import { Helmet } from 'react-helmet-async';
 import { useContext } from 'react';
 
 import useAxiosPublic from '../../hooks/useAxiosPublic';
-import { GithubAuthProvider, GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
-import { app } from '../../firebase/firebase.config';
 
 const Login = () => {
 
-  const { signIn } = useContext(AuthContext);
+  const { LoginUser } = useContext(CentralContext);
   const navigate = useNavigate();
   const location = useLocation();
-  const axiosPublic = useAxiosPublic();
 
 
   const from = location.state?.from?.pathname || "/";
   
 
-
-
-
-  const auth = getAuth(app);
-  const googleProvider = new GoogleAuthProvider();
-  const githubProvider = new GithubAuthProvider();
-
-  //github login
-  const handleGithubLogin = () => {
-
-    signInWithPopup(auth, githubProvider)
-      .then(result => {
-        const userInfo = {
-          email: result.user?.email,
-          name: result.user?.displayName,
-          role: 'user'
-        }
-        axiosPublic.post('/users', userInfo)
-          .then((res) => {
-            console.log(res.data);
-            toast.success(`Successfully Logged In with Github!`, {
-              position: 'top-center',
-              autoClose:1500,
-            });
-            navigate(location?.state ? location.state : '/');
-          })
-      })
-
-  }
-
-  //  //google login
-  const handleGoogleLogin = () => {
-
-    signInWithPopup(auth, googleProvider)
-      .then(result => {
-        console.log(result.user);
-        const userInfo = {
-          email: result.user?.email,
-          name: result.user?.displayName,
-          role: 'user'
-        }
-        axiosPublic.post('/users', userInfo)
-          .then(res => {
-            console.log(res.data);
-            toast.success(`Sucessfully Logged In with Google!`, {
-              position: "top-center",
-              autoClose:1500,
-            });
-            console.log(location.state);
-            navigate(location?.state ? location.state : '/');
-            console.log(result.user);
-          })
-      })
-
-  }
 
 
   const handleLogin = e => {
@@ -89,7 +31,7 @@ const Login = () => {
     const email = form.get('email');
     const password = form.get('password');
 
-    signIn(email, password)
+    LoginUser(email, password)
       .then(result => {
         toast.success(`Hi ! Welcome Back !`, {
           position: "top-center",
@@ -118,7 +60,7 @@ const Login = () => {
   return (
     <>
       <Helmet>
-        <title>Serenity Heaven | Login</title>
+        <title>House Hunter | Login</title>
       </Helmet>
       <div><div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col lg:flex-row-reverse">
@@ -136,7 +78,7 @@ const Login = () => {
                 <p className="mb-0 mr-4 text-lg">Sign in with</p>
 
                 {/* Google */}
-                <button onClick={handleGoogleLogin}
+                <button 
                   type="button"
                   data-te-ripple-init
                   data-te-ripple-color="light"
@@ -146,7 +88,7 @@ const Login = () => {
                 </button>
 
                 {/* GitHub */}
-                <button onClick={handleGithubLogin}
+                <button
                   type="button"
                   data-te-ripple-init
                   data-te-ripple-color="light"

@@ -9,68 +9,16 @@ import { Helmet } from 'react-helmet-async';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
 
 import useAuth from '../../../hooks/useAuth';
-import { GithubAuthProvider, GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
-import { app } from '../../../firebase/firebase.config';
+
 
 const Registration = () => {
     const axiosPublic = useAxiosPublic();
-    const auth = getAuth(app);
-    const googleProvider = new GoogleAuthProvider();
-    const githubProvider = new GithubAuthProvider();
+   
 
-    const { createUser, updateUserProfile } = useAuth();
+    const { CreateUser,setUser } = useAuth();
     const bgImage = 'https://i.ibb.co/q0vmBDR/video-conference-online-business-call-260nw-1793651794.jpg';
     const navigate = useNavigate();
 
-    //github login
-    const handleGithubLogin = () => {
-
-        signInWithPopup(auth, githubProvider)
-            .then(result => {
-                const userInfo = {
-                    email: result.user?.email,
-                    name: result.user?.displayName,
-                    photoURL: result.user?.photoURL,
-                    role: 'user'
-                }
-                axiosPublic.post('/users', userInfo)
-                    .then((res) => {
-                        console.log(res.data);
-                        toast.success(`Successfully Logged In with Github!`, {
-                            position: 'top-center',
-                            autoClose: 1500,
-                        });
-                        navigate(location?.state ? location.state : '/');
-                    })
-            })
-
-    }
-
-    //  //google login
-    const handleGoogleLogin = () => {
-
-        signInWithPopup(auth, googleProvider)
-            .then(result => {
-                console.log(result.user);
-                const userInfo = {
-                    email: result.user?.email,
-                    name: result.user?.displayName,
-                    photoURL: result.user?.photoURL,
-                    role: 'user'
-                }
-                axiosPublic.post('/users', userInfo)
-                    .then(res => {
-                        console.log(res.data);
-                        toast.success(`Sucessfully Logged In with Google!`, {
-                            position: "top-center",
-                            autoClose: 1500,
-                        });
-                        navigate(location?.state ? location.state : '/');
-                        console.log(result.user);
-                    })
-            })
-
-    }
 
     const handleRegister = (e) => {
         e.preventDefault();
@@ -108,11 +56,11 @@ const Registration = () => {
             return;
         }
 
-        createUser(email, password)
+        CreateUser(email, password)
             .then(result => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
-                updateUserProfile(name, photoURL)
+                setUser(name, photoURL)
                     .then(() => {
 
                         console.log('user added to the database');
@@ -128,7 +76,7 @@ const Registration = () => {
                             photoURL: photoURL,
                             role: 'user'
                         };
-                        axiosPublic.post('/users', userInfo)
+                        axiosPublic.post('/user', userInfo)
                             .then(res => {
                                 if (res.data.insertedId) {
                                     console.log('user added to the database');
@@ -147,7 +95,7 @@ const Registration = () => {
     return (
         <>
             <Helmet>
-                <title>Serenity Heaven | Registration</title>
+                <title>House Hunter | Registration</title>
             </Helmet>
             <div className="hero min-h-screen bg-base-200 bg-cover" style={{ backgroundImage: `url(${bgImage})` }}>
                 <div className="hero-content items-center">
@@ -155,7 +103,7 @@ const Registration = () => {
                         <form onSubmit={handleRegister} className="card-body" style={{ backgroundColor: 'rgba(255, 255, 255, 0.5)' }}>
                             <div className="flex flex-row items-center justify-center lg:justify-around gap-3">
                                 <p className="mb-0 mr-4 text-lg">Register with</p>
-                                <button onClick={handleGoogleLogin}
+                                <button
                                     type="button"
                                     data-te-ripple-init
                                     data-te-ripple-color="light"
@@ -163,7 +111,7 @@ const Registration = () => {
                                 >
                                     <FcGoogle className="mx-auto h-3.5 w-3.5" />
                                 </button>
-                                <button onClick={handleGithubLogin}
+                                <button
                                     type="button"
                                     data-te-ripple-init
                                     data-te-ripple-color="light"

@@ -1,10 +1,9 @@
-import React from "react";
 import SectionTitle from "./SectionTitle";
 
 const About = () => {
   return (
     <div>
-      <SectionTitle heading="About The Building" />
+      <SectionTitle heading="About Our Houses" />
       <div className="md:flex items-center">
         <div className="bg-gray-200 w-full md:w-1/2 rounded-lg p-6">
           <div className="flex p-2 gap-1">
@@ -20,11 +19,10 @@ const About = () => {
           </div>
           <div className="card__content mt-4">
             <p className="text-gray-700">
-              Our building stands tall with 10 floors, equipped with modern
-              amenities such as elevators, a spacious parking area, covering an
-              area of 3200 sqft. It offers a comfortable and convenient living
-              experience for residents. Feel the essence of modern living with
-              us.
+              Explore our collection of over 20 premium houses, each offering a
+              unique living experience. Our houses stand out with spacious rooms,
+              modern amenities, and convenient features. With a variety of options,
+              you're sure to find the perfect home that suits your lifestyle.
             </p>
           </div>
         </div>
@@ -60,11 +58,11 @@ const About = () => {
           </div>
           <div className="card__content mt-4">
             <p className="text-gray-700">
-              Enjoy spacious living with generously sized rooms, providing ample
-              space for comfort and relaxation. Step onto the balcony and immerse
+              Enjoy the comfort of our spacious houses, carefully designed to
+              provide ample space for relaxation. Step onto the balcony and immerse
               yourself in the outdoors, taking advantage of the refreshing breeze and
-              scenic views. Our building offers top-notch water facilities, ensuring
-              a seamless and convenient water supply for all residents. Experience
+              scenic views. Our houses offer top-notch water facilities, ensuring a
+              seamless and convenient water supply for all residents. Experience
               larger dining areas, perfect for gatherings and shared meals. Each room
               is designed with a focus on providing a larger, open feel, creating a
               homely atmosphere you'll love.

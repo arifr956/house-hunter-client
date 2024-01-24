@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -12,13 +12,13 @@ const Footer = () => {
                 <div className="w-full space-x-12 flex justify-center text-white sm:w-7/12 md:justify-start">
                   <ul className="list-disc list-inside space-y-6">
                     <li><Link to="/">Home</Link></li>
-                    <li><Link to="/apartments">All Apartments</Link></li>
+                    <li><Link to="/apartments">All Apartment Buildings</Link></li>
                     <li><Link to="/">Terms of Use</Link></li>
                   </ul>
                 </div>
                 <div className="w-10/12 m-auto mt-16 space-y-6 text-center sm:text-left sm:w-5/12 p-3 sm:mt-auto bg-[#394251]">
                   <div className="">
-                    <span className="block text-white font-semibold text-2xl">Serenity Heaven</span>
+                    <span className="block text-white font-semibold text-2xl">House Hunter</span>
                   </div>
                   <nav>
 
@@ -40,7 +40,7 @@ const Footer = () => {
                       </a>
                     </div>
                   </nav>
-                  <span className="block text-gray-300">&copy; 2023 Serenity Heaven</span>
+                  <span className="block text-gray-300">&copy; 2023 House Hunter</span>
                 </div>
               </div>
             </div>

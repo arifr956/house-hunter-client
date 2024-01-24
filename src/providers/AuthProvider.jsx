@@ -1,92 +1,68 @@
-import { createContext, useEffect, useState } from "react";
-import { GoogleAuthProvider, GithubAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
-import { app } from "../firebase/firebase.config";
+import { createContext, useEffect, useState } from "react"
+import usePublicAxios from "../Hooks/useAxiosPublic";
+import { getUserInstanceFromLS, removeInstance } from "../Utils/StorageOperations";
 
-import useAxiosPublic from "../hooks/useAxiosPublic";
 
-export const AuthContext = createContext(null);
 
-const auth = getAuth(app);
+export const CentralContext = createContext(null);
 
-const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const googleProvider = new GoogleAuthProvider();
-    const githubProvider = new GithubAuthProvider();
-    
-    const axiosPublic = useAxiosPublic();
 
-    const createUser = (email, password) => {
-        setLoading(true);
-        return createUserWithEmailAndPassword(auth, email, password);
+const CentralContextComp = ({ children }) => {
+
+  const publicAxios = usePublicAxios();
+  const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(true);
+
+
+  // Create User
+  const CreateUser = (data) => {
+    setLoading(true);
+    return publicAxios.post('/user', data)
+  }
+
+  // Logout User
+  const LogOutUser = () => {
+    setLoading(true);
+    return removeInstance();
+  }
+
+  // login User
+  const LoginUser=(data)=>{
+    console.log("Context",data);
+    return publicAxios.put('/user',data)
+  }
+
+  // Hold user Instance
+  useEffect(()=>{
+    // This call back function if used for hold the user instance for every effect !
+    const unSubscribe =()=> getUserInstanceFromLS();
+    if(unSubscribe){
+      setLoading(false);
+      setUser(unSubscribe);
+    }else{
+      setUser({})
     }
-
-    const signIn = (email, password) => {
-        setLoading(true);
-        return signInWithEmailAndPassword(auth, email, password);
+    return ()=>{
+      return getUserInstanceFromLS()
     }
+  },[])
 
-     const googleSignIn = () => {
-        setLoading(true);
-         return signInWithPopup(auth, googleProvider);
-     }
 
-     const githubSignIn = () => {
-         setLoading(true);
-         return signInWithPopup(auth, githubProvider);
-     }
+  const contextInfo = {
+    user,
+    loading,
+    CreateUser,
+    LogOutUser,
+    setUser,
+    setLoading,
+    LoginUser
+  }
 
-    const logOut = () => {
-        setLoading(true);
-        return signOut(auth);
-    }
+  return (
+    <CentralContext.Provider value={contextInfo}>
+      {children}
+    </CentralContext.Provider>
+  )
+}
 
-    const updateUserProfile = (name, photo) => {
-        return updateProfile(auth.currentUser, {
-            displayName: name, photoURL: photo
-        });
-    }
-
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, currentUser => {
-            setUser(currentUser);
-
-            setLoading(true);
-            if (currentUser) {
-                // get token and store client
-                const userInfo = { email: currentUser.email };
-                axiosPublic.post('/jwt', userInfo)
-                    .then(res => {
-                        if (res.data.token) {
-                            localStorage.setItem('access-token', res.data.token);
-                            setLoading(false);
-                        }
-                    })
-            } else {
-                // TODO: remove token (if token stored on the client side: Local storage, caching, in memory)
-                localStorage.removeItem('access-token');
-                setLoading(false);
-            }
-        });
-        return () => unsubscribe();
-    }, [axiosPublic]); 
-
-    const authInfo = {
-        user,
-        loading,
-        createUser,
-        signIn,
-        //googleSignIn,
-        //githubSignIn,
-        logOut,
-        updateUserProfile
-    }
-
-    return (
-        <AuthContext.Provider value={authInfo}>
-            {children}
-        </AuthContext.Provider>
-    );
-};
-
-export default AuthProvider;
+export default CentralContextComp
